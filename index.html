@@ -1,0 +1,190 @@
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بيننا | من طالبة لطالبة</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Playpen+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="navbar">
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <div class="logo">بيننا</div>
+    <div style="font-size: 11px; color: #666; border-right: 1px solid #ccc; padding-right: 10px; line-height: 1.3;">
+      <span>إعداد الطالبة: <strong>أمل صالح العنزي</strong> (تجارة إلكترونية)</span><br>
+      <span>إشراف المدربة: <strong>أ. إلهام العتيبي</strong></span>
+    </div>
+  </div>
+  <nav>
+    <a href="#home">الرئيسية</a>
+    <a href="#products">المنتجات</a>
+    <a href="#add">أضيفي منتج</a>
+    <a href="#account">حسابي</a>
+  </nav>
+  <button class="login-btn" onclick="openLogin()">تسجيل الدخول</button>
+</header>
+
+<section id="home" class="hero">
+  <div class="hero-text">
+    <h1>بيننا</h1>
+    <h2>من طالبة لطالبة</h2>
+    <p>منصة خاصة لطالبات الكلية التقنية التطبيقية لبيع وشراء الأدوات والكتب والمستلزمات الدراسية بسهولة وبأسعار مناسبة.</p>
+    <div class="hero-buttons">
+      <button onclick="scrollToProducts()">تصفحي المنتجات</button>
+      <button onclick="scrollToAdd()">أضيفي منتج</button>
+    </div>
+  </div>
+  <div class="hero-card">✦</div>
+</section>
+
+<section class="search-section">
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="ابحثي عن منتج...">
+    <button onclick="searchProducts()">بحث</button>
+  </div>
+</section>
+
+<section class="categories">
+  <h2>التصنيفات</h2>
+  <div class="category-buttons">
+    <button onclick="filterCategory('كتب')">كتب</button>
+    <button onclick="filterCategory('تصميم')">تصميم</button>
+    <button onclick="filterCategory('إلكترونيات')">إلكترونيات</button>
+    <button onclick="filterCategory('دراسية')">دراسية</button>
+    <button onclick="showAllProducts()">الكل</button>
+  </div>
+</section>
+
+<section id="products" class="products-section">
+  <h2>المنتجات</h2>
+  <div id="productsContainer" class="products-grid">
+
+    <div class="product-card" data-category="دراسية">
+      <div class="product-image">📦</div>
+      <div class="product-content">
+        <span class="category">دراسية</span>
+        <h3>آلة حاسبة علمية</h3>
+        <p>مستخدمة بحالة ممتازة</p>
+        <strong>45 ريال</strong>
+        <button onclick="openProduct('آلة حاسبة علمية','45','','','آلة حاسبة علمية مستخدمة بحالة ممتازة.')">التفاصيل</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="كتب">
+      <div class="product-image">📚</div>
+      <div class="product-content">
+        <span class="category">كتب</span>
+        <h3>كتاب مبادئ التسويق</h3>
+        <p>بحالة جيدة</p>
+        <strong>25 ريال</strong>
+        <button onclick="openProduct('كتاب مبادئ التسويق','25','','','كتاب مبادئ التسويق بحالة جيدة.')">التفاصيل</button>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="تصميم">
+      <div class="product-image">🎨</div>
+      <div class="product-content">
+        <span class="category">تصميم</span>
+        <h3>أدوات تصميم</h3>
+        <p>شبه جديدة</p>
+        <strong>45 ريال</strong>
+        <button onclick="openProduct('أدوات تصميم','45','','','مجموعة أدوات تصميم شبه جديدة.')">التفاصيل</button>
+      </div>
+    </div>
+
+  </div>
+  <p id="noResults" style="display:none;">ما لقينا منتجات مطابقة لبحثك.</p>
+</section>
+
+<section id="add" class="add-section">
+  <h2>أضيفي منتج</h2>
+
+  <form id="productForm">
+    <input type="text" id="productName" placeholder="اسم المنتج" required>
+
+    <select id="productCategory" required>
+      <option value="">اختاري التصنيف</option>
+      <option value="كتب">كتب</option>
+      <option value="تصميم">تصميم</option>
+      <option value="إلكترونيات">إلكترونيات</option>
+      <option value="دراسية">دراسية</option>
+    </select>
+
+    <select id="productCondition" required>
+      <option value="">حالة المنتج</option>
+      <option value="جديد">جديد</option>
+      <option value="شبه جديد">شبه جديد</option>
+      <option value="مستخدم بحالة جيدة">مستخدم بحالة جيدة</option>
+    </select>
+
+    <label for="productPrice">السعر بالريال</label>
+    <input type="number" id="productPrice" placeholder="اكتبي السعر بنفسك أو خليه مقترحًا" min="1">
+
+    <button type="button" id="aiPriceButton">✨ اسألي الذكاء الاصطناعي عن السعر</button>
+    <p id="aiPriceResult" class="form-note" aria-live="polite"></p>
+
+    <textarea id="productDescription" placeholder="وصف المنتج"></textarea>
+
+    <input type="tel" id="sellerPhone" placeholder="رقم الجوال للتواصل" required>
+
+    <label for="productImage">صورة المنتج</label>
+    <input type="file" id="productImage" accept="image/*">
+
+    <p class="form-note">السعر المقترح تقديري، ويمكنك تعديله واختيار السعر النهائي بنفسك.</p>
+    <p class="form-note">التواصل مع البائعة يكون خارج الموقع عن طريق رقم الجوال.</p>
+
+    <button type="submit">عرض المنتج</button>
+  </form>
+</section>
+
+<section id="account" class="account-section">
+  <h2>حسابي</h2>
+  <div class="account-cards">
+    <div class="account-card">
+      <h3>المفضلة</h3>
+      <p>المنتجات التي حفظتيها.</p>
+    </div>
+    <div class="account-card">
+      <h3>منتجاتي</h3>
+      <p>المنتجات التي قمتِ بعرضها.</p>
+    </div>
+    <div class="account-card">
+      <h3>مشترياتي</h3>
+      <p>المنتجات التي اشتريتيها.</p>
+    </div>
+  </div>
+</section>
+
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeLogin()">×</button>
+    <h2>تسجيل الدخول</h2>
+    <input type="text" id="loginName" placeholder="الاسم الكامل">
+    <input type="text" id="trainingNumber" placeholder="الرقم التدريبي">
+    <input type="email" id="loginEmail" placeholder="البريد الإلكتروني">
+    <button onclick="login()">دخول</button>
+  </div>
+</div>
+
+<div id="productModal" class="modal">
+  <div class="modal-content product-modal-content">
+    <button class="back-btn" onclick="closeProduct()">← رجوع</button>
+    <div class="modal-product-image">📦</div>
+    <h2 id="modalProductName">اسم المنتج</h2>
+    <strong id="modalProductPrice">0 ريال</strong>
+    <p id="modalProductDescription"></p>
+    <button onclick="contactSeller()">التواصل مع البائع</button>
+  </div>
+</div>
+
+<footer>
+  <p>بيننا — من طالبة لطالبة | منصة خاصة بطالبات الكلية التقنية التطبيقية</p>
+  <p style="font-size: 12px; opacity: 0.8; margin-top: 5px;">
+    إعداد الطالبة: <strong>أمل صالح العنزي</strong> — تخصص تجارة إلكترونية | إشراف المدربة: <strong>أ. إلهام العتيبي</strong>
+  </p>
+</footer>
+
+</body>
+</html>
