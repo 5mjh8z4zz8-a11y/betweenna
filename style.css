@@ -1,0 +1,737 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Cairo", sans-serif;
+  background: #fbfaf7;
+  color: #76594b;
+  direction: rtl;
+}
+
+/* شريط التنقل */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 18px 7%;
+
+  background: #fbfaf7;
+  border-bottom: 1px solid #eee8e1;
+}
+
+.logo {
+  font-family: "Playpen Sans Arabic", sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #76594b;
+}
+
+.navbar nav {
+  display: flex;
+  gap: 30px;
+}
+
+.navbar nav a {
+  color: #76594b;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.navbar nav a:hover {
+  color: #61483c;
+}
+
+.login-btn {
+  border: none;
+  background: #76594b;
+  color: white;
+
+  padding: 10px 20px;
+  border-radius: 12px;
+
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background: #61483c;
+}
+
+
+/* الرئيسية */
+.hero {
+  padding: 80px 7%;
+}
+
+.hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.hero-text {
+  flex: 1;
+}
+
+.hero-text h1 {
+  font-family: "Playpen Sans Arabic", sans-serif;
+  font-size: 60px;
+  margin-bottom: 5px;
+  color: #76594b;
+}
+
+.hero-text h2 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.hero-text p {
+  color: #8a7770;
+  line-height: 2;
+  max-width: 550px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.hero-buttons button {
+  border: none;
+  padding: 13px 25px;
+  border-radius: 12px;
+
+  font-family: inherit;
+  font-weight: 600;
+
+  cursor: pointer;
+  background: #76594b;
+  color: white;
+
+  transition: 0.3s;
+}
+
+.hero-buttons button:hover {
+  background: #61483c;
+}
+
+.hero-buttons button:last-child {
+  background: #f3eee8;
+  color: #76594b;
+}
+
+
+/* البطاقة */
+.hero-card {
+  width: 320px;
+  height: 320px;
+
+  background: #f3eee8;
+  border-radius: 35px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 0 10px 30px rgba(118, 89, 75, 0.08);
+}
+
+.hero-icon {
+  font-size: 55px;
+  margin-bottom: 10px;
+}
+
+.hero-card h2 {
+  font-family: "Playpen Sans Arabic", sans-serif;
+  font-size: 35px;
+}
+
+.hero-card p {
+  margin-top: 5px;
+}
+
+
+/* البحث */
+.search-section {
+  padding: 10px 7% 30px;
+}
+
+.search-box {
+  max-width: 800px;
+  margin: auto;
+
+  display: flex;
+  gap: 10px;
+}
+
+.search-box input {
+  flex: 1;
+
+  padding: 15px 18px;
+
+  border: 1px solid #e5ddd6;
+  border-radius: 12px;
+
+  background: white;
+
+  font-family: inherit;
+  outline: none;
+}
+
+.search-box input:focus {
+  border-color: #76594b;
+}
+
+.search-box button {
+  padding: 0 25px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: #76594b;
+  color: white;
+
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+/* التصنيفات */
+.categories {
+  padding: 30px 7%;
+  text-align: center;
+}
+
+.categories h2 {
+  margin-bottom: 20px;
+}
+
+.category-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.category-buttons button {
+  border: 1px solid #e5ddd6;
+  background: #f3eee8;
+  color: #76594b;
+
+  padding: 10px 22px;
+  border-radius: 20px;
+
+  font-family: inherit;
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.category-buttons button:hover {
+  background: #76594b;
+  color: white;
+}
+
+
+/* المنتجات */
+.products-section {
+  padding: 60px 7%;
+  max-width: 1300px;
+  margin: auto;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 25px;
+}
+
+.section-title h2 {
+  font-size: 28px;
+}
+
+.section-title button {
+  border: none;
+  background: none;
+
+  color: #76594b;
+
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.products-container {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 25px;
+}
+
+.product-card {
+  background: white;
+
+  border: 1px solid #eee8e1;
+  border-radius: 18px;
+
+  overflow: hidden;
+
+  box-shadow: 0 5px 20px rgba(118, 89, 75, 0.05);
+
+  transition: 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+}
+
+.product-image {
+  height: 190px;
+
+  background: #f3eee8;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 55px;
+
+  overflow: hidden;
+}
+
+.product-content {
+  padding: 20px;
+}
+
+.category {
+  display: inline-block;
+
+  background: #f3eee8;
+  color: #76594b;
+
+  padding: 4px 10px;
+  border-radius: 10px;
+
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.product-content h3 {
+  font-size: 19px;
+  margin-bottom: 5px;
+}
+
+.product-content p {
+  color: #9a8982;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.product-content strong {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.product-content button {
+  width: 100%;
+
+  border: none;
+  background: #76594b;
+  color: white;
+
+  padding: 10px;
+
+  border-radius: 10px;
+
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.no-results {
+  text-align: center;
+  padding: 40px;
+  color: #9a8982;
+}
+
+
+/* إضافة منتج */
+.add-section {
+  padding: 70px 7%;
+
+  background: #f3eee8;
+}
+
+.add-section .section-title {
+  max-width: 800px;
+  margin: 0 auto 30px;
+}
+
+.product-form {
+  max-width: 800px;
+  margin: auto;
+
+  background: white;
+
+  padding: 30px;
+
+  border-radius: 20px;
+
+  box-shadow: 0 5px 25px rgba(118, 89, 75, 0.06);
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+
+  padding: 13px 15px;
+
+  border: 1px solid #e5ddd6;
+  border-radius: 10px;
+
+  font-family: inherit;
+
+  background: white;
+  outline: none;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #76594b;
+}
+
+.ai-note,
+.contact-note {
+  font-size: 13px;
+  color: #8a7770;
+  margin-bottom: 8px;
+}
+
+.submit-product {
+  width: 100%;
+
+  margin-top: 15px;
+
+  padding: 13px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: #76594b;
+  color: white;
+
+  font-family: inherit;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.submit-product:hover {
+  background: #61483c;
+}
+
+
+/* الحساب */
+.account-section {
+  padding: 70px 7%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.account-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.account-card {
+  background: #f3eee8;
+
+  padding: 30px;
+
+  border-radius: 18px;
+
+  text-align: center;
+}
+
+.account-icon {
+  font-size: 35px;
+  margin-bottom: 10px;
+}
+
+.account-card h3 {
+  margin-bottom: 5px;
+}
+
+.account-card p {
+  color: #8a7770;
+  font-size: 14px;
+}
+
+
+/* النوافذ */
+.modal {
+  display: none;
+
+  position: fixed;
+  inset: 0;
+
+  z-index: 2000;
+
+  background: rgba(40, 30, 25, 0.45);
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 450px;
+
+  max-height: 90vh;
+  overflow-y: auto;
+
+  position: relative;
+
+  background: white;
+
+  border-radius: 20px;
+
+  padding: 30px;
+
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+}
+
+.close-btn {
+  position: absolute;
+
+  top: 12px;
+  left: 15px;
+
+  border: none;
+  background: none;
+
+  font-size: 28px;
+
+  color: #76594b;
+
+  cursor: pointer;
+}
+
+.modal-content h2 {
+  margin-bottom: 8px;
+}
+
+.modal-content > p {
+  color: #8a7770;
+  margin-bottom: 20px;
+}
+
+.login-submit,
+.contact-btn {
+  width: 100%;
+
+  padding: 12px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #76594b;
+  color: white;
+
+  font-family: inherit;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+
+/* تفاصيل المنتج */
+.modal-product-image {
+  width: 100%;
+  height: 230px;
+
+  background: #f3eee8;
+
+  border-radius: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 60px;
+
+  overflow: hidden;
+
+  margin-bottom: 20px;
+}
+
+.product-modal-content h2 {
+  margin-bottom: 10px;
+}
+
+.modal-product-price {
+  display: block;
+
+  font-size: 22px;
+
+  margin-bottom: 15px;
+}
+
+.contact-btn {
+  margin-top: 20px;
+}
+
+
+/* الفوتر */
+footer {
+  background: #55463e;
+  color: white;
+
+  padding: 40px 7%;
+
+  text-align: center;
+}
+
+.footer-content h2 {
+  font-family: "Playpen Sans Arabic", sans-serif;
+  margin-bottom: 5px;
+}
+
+.footer-content p {
+  opacity: 0.85;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+
+/* الجوال */
+@media (max-width: 800px) {
+
+  .navbar {
+    padding: 15px 5%;
+    gap: 10px;
+  }
+
+  .navbar nav {
+    display: none;
+  }
+
+  .logo {
+    font-size: 24px;
+  }
+
+  .login-btn {
+    padding: 8px 13px;
+    font-size: 13px;
+  }
+
+  .hero {
+    padding: 50px 5%;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-text h1 {
+    font-size: 48px;
+  }
+
+  .hero-text h2 {
+    font-size: 23px;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-card {
+    width: 280px;
+    height: 280px;
+  }
+
+  .products-section,
+  .categories,
+  .search-section,
+  .account-section {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .products-container {
+    grid-template-columns: 1fr;
+  }
+
+  .account-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .search-box {
+    flex-direction: column;
+  }
+
+  .search-box button {
+    padding: 12px;
+  }
+
+  .section-title h2 {
+    font-size: 24px;
+  }
+
+  .add-section {
+    padding: 50px 5%;
+  }
+
+  .product-form {
+    padding: 22px;
+  }
+}
