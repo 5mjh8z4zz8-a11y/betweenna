@@ -147,7 +147,6 @@ function contactSeller() {
   window.location.href = "tel:" + currentProduct.phone;
 }
 
-// دالة فتح Gemini مباشرة وتجهيز السؤال لتحديد السعر المناسب
 function suggestProductPrice() {
   const productName = document.getElementById("productName").value.trim();
   const category = document.getElementById("productCategory") ? document.getElementById("productCategory").value : "";
@@ -166,7 +165,6 @@ function suggestProductPrice() {
     return;
   }
 
-  // تجهيز نص السؤال الاحترافي ليقوم جيمناي بتقييم السعر
   const promptText = `أنا طالبة في متجر "بيننا" وأريد اقتراح سعر مناسب بالريال السعودي لهذا المنتج:
 - اسم المنتج: ${productName}
 - القسم: ${category}
@@ -177,11 +175,9 @@ function suggestProductPrice() {
   const encodedPrompt = encodeURIComponent(promptText);
   const geminiUrl = `https://gemini.google.com/app?q=${encodedPrompt}`;
 
-  // فتح صفحة Gemini في تبويب جديد بالسؤال الجاهز
   window.open(geminiUrl, "_blank");
 }
 
-// عند تحميل الصفحة
 document.addEventListener("DOMContentLoaded", function () {
   updateLoginButton();
 
@@ -191,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", function (event) {
       event.preventDefault();
 
-      const name = document.getElementById("productName").value.trim();
+      const name = document.getElementById("productName").value.trim.trim ? document.getElementById("productName").value.trim() : "";
       const category = document.getElementById("productCategory").value;
       const condition = document.getElementById("productCondition").value;
       const price = document.getElementById("productPrice").value.trim();
@@ -244,7 +240,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// إنشاء بطاقة منتج
 function createProduct(
   name, category, condition, price, description, phone, image
 ) {
