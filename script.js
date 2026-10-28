@@ -21,11 +21,6 @@ function login() {
   const trainingNumber = document.getElementById("trainingNumber").value.trim();
   const email = document.getElementById("loginEmail").value.trim();
 
-  if (!name || !trainingNumber || !email) {
-    alert("فضلاً عبّي جميع البيانات");
-    return;
-  }
-
   const user = { name, trainingNumber, email };
   localStorage.setItem("currentUser", JSON.stringify(user));
   alert("تم تسجيل الدخول بنجاح");
@@ -153,18 +148,6 @@ function suggestProductPrice() {
   const condition = document.getElementById("productCondition").value;
   const description = document.getElementById("productDescription") ? document.getElementById("productDescription").value.trim() : "";
 
-  if (!productName) {
-    alert("اكتبي اسم المنتج أولًا");
-    document.getElementById("productName").focus();
-    return;
-  }
-
-  if (!condition) {
-    alert("اختاري حالة المنتج أولًا");
-    document.getElementById("productCondition").focus();
-    return;
-  }
-
   const promptText = `أنا طالبة في متجر "بيننا" وأريد اقتراح سعر مناسب بالريال السعودي لهذا المنتج:
 - اسم المنتج: ${productName}
 - القسم: ${category}
@@ -187,25 +170,13 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", function (event) {
       event.preventDefault();
 
-      const name = document.getElementById("productName").value.trim();
-      const category = document.getElementById("productCategory").value;
-      const condition = document.getElementById("productCondition").value;
-      const price = document.getElementById("productPrice").value.trim();
-      const description =
-        document.getElementById("productDescription").value.trim();
-      const phone = document.getElementById("sellerPhone").value.trim();
+      const name = document.getElementById("productName").value.trim() || "منتج جديد";
+      const category = document.getElementById("productCategory").value || "دراسية";
+      const condition = document.getElementById("productCondition").value || "جديد";
+      const price = document.getElementById("productPrice").value.trim() || "50";
+      const description = document.getElementById("productDescription").value.trim() || "";
+      const phone = document.getElementById("sellerPhone").value.trim() || "0500000000";
       const imageInput = document.getElementById("productImage");
-
-      if (!name || !category || !condition || !phone) {
-        alert("فضلاً عبّي البيانات المطلوبة");
-        return;
-      }
-
-      if (!price || !Number.isFinite(Number(price)) || Number(price) <= 0) {
-        alert("اكتبي السعر بنفسك أو اسألي الذكاء الاصطناعي ثم اكتبي السعر الذي تختارينه.");
-        document.getElementById("productPrice").focus();
-        return;
-      }
 
       const file = imageInput.files[0];
 
