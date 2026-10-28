@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", function (event) {
       event.preventDefault();
 
-      const name = document.getElementById("productName").value.trim.trim ? document.getElementById("productName").value.trim() : "";
+      const name = document.getElementById("productName").value.trim();
       const category = document.getElementById("productCategory").value;
       const condition = document.getElementById("productCondition").value;
       const price = document.getElementById("productPrice").value.trim();
