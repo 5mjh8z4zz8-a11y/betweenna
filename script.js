@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+// إعدادات فايربيس الخاصة بمشروعك
 const firebaseConfig = {
   apiKey: "AIzaSyBvbAGrsKPi0dd5reCvNevqoS_0AlnMzv8",
   authDomain: "bennana-4ffc7.firebaseapp.com",
@@ -11,31 +12,38 @@ const firebaseConfig = {
   measurementId: "G-FCXKRLMYNL"
 };
 
+// تهيئة قاعدة البيانات
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 let activeCategory = "الكل";
 let currentProduct = { name: "", price: "", phone: "", image: "", description: "" };
 
+// ربط الدوال بالـ window لتشتغل الأزرار بخصائص HTML (onclick)
 window.openLogin = function() {
   document.getElementById("loginModal").style.display = "flex";
-}
+};
 
 window.closeLogin = function() {
   document.getElementById("loginModal").style.display = "none";
-}
+};
 
 window.login = function() {
   const name = document.getElementById("loginName").value.trim();
   const trainingNumber = document.getElementById("trainingNumber").value.trim();
   const email = document.getElementById("loginEmail").value.trim();
 
+  if (!name) {
+    alert("يرجى إدخال الاسم الكامل");
+    return;
+  }
+
   const user = { name, trainingNumber, email };
   localStorage.setItem("currentUser", JSON.stringify(user));
   alert("تم تسجيل الدخول بنجاح");
-  closeLogin();
+  window.closeLogin();
   updateLoginButton();
-}
+};
 
 function updateLoginButton() {
   const button = document.querySelector(".login-btn");
@@ -50,32 +58,33 @@ function updateLoginButton() {
 }
 
 window.scrollToProducts = function() {
-  document.getElementById("products").scrollIntoView({ behavior: "smooth" });
-}
+  document.getElementById("products")?.scrollIntoView({ behavior: "smooth" });
+};
 
 window.scrollToAdd = function() {
-  document.getElementById("add").scrollIntoView({ behavior: "smooth" });
-}
+  document.getElementById("add")?.scrollIntoView({ behavior: "smooth" });
+};
 
 window.searchProducts = function() {
   applyFilters();
-  scrollToProducts();
-}
+  window.scrollToProducts();
+};
 
 window.filterCategory = function(category) {
   activeCategory = category;
   applyFilters();
-  scrollToProducts();
-}
+  window.scrollToProducts();
+};
 
 window.showAllProducts = function() {
   activeCategory = "الكل";
-  document.getElementById("searchInput").value = "";
+  const searchInput = document.getElementById("searchInput");
+  if (searchInput) searchInput.value = "";
   applyFilters();
-}
+};
 
 function applyFilters() {
-  const search = document.getElementById("searchInput").value.trim().toLowerCase();
+  const search = document.getElementById("searchInput")?.value.trim().toLowerCase() || "";
   const cards = document.querySelectorAll(".product-card");
   let count = 0;
 
@@ -106,25 +115,27 @@ window.openProduct = function(name, price, phone = "", image = "", description =
   document.getElementById("modalProductDescription").textContent = description;
 
   const imageBox = document.querySelector(".modal-product-image");
-  if (image) {
-    imageBox.innerHTML = "";
-    const img = document.createElement("img");
-    img.src = image;
-    img.alt = name;
-    img.style.width = "100%";
-    img.style.height = "100%";
-    img.style.objectFit = "cover";
-    img.style.borderRadius = "15px";
-    imageBox.appendChild(img);
-  } else {
-    imageBox.textContent = "📦";
+  if (imageBox) {
+    if (image) {
+      imageBox.innerHTML = "";
+      const img = document.createElement("img");
+      img.src = image;
+      img.alt = name;
+      img.style.width = "100%";
+      img.style.height = "100%";
+      img.style.objectFit = "cover";
+      img.style.borderRadius = "15px";
+      imageBox.appendChild(img);
+    } else {
+      imageBox.textContent = "📦";
+    }
   }
   document.getElementById("productModal").style.display = "flex";
-}
+};
 
 window.closeProduct = function() {
   document.getElementById("productModal").style.display = "none";
-}
+};
 
 window.contactSeller = function() {
   if (!currentProduct.phone) {
@@ -132,13 +143,18 @@ window.contactSeller = function() {
     return;
   }
   window.location.href = "tel:" + currentProduct.phone;
-}
+};
 
 window.suggestProductPrice = function() {
-  const productName = document.getElementById("productName").value.trim();
-  const category = document.getElementById("productCategory") ? document.getElementById("productCategory").value : "";
-  const condition = document.getElementById("productCondition").value;
-  const description = document.getElementById("productDescription") ? document.getElementById("productDescription").value.trim() : "";
+  const productName = document.getElementById("productName")?.value.trim() || "";
+  const category = document.getElementById("productCategory")?.value || "";
+  const condition = document.getElementById("productCondition")?.value || "";
+  const description = document.getElementById("productDescription")?.value.trim() || "";
+
+  if (!productName) {
+    alert("يرجى كتابة اسم المنتج أولاً حتى نقترح لك السعر المناسب");
+    return;
+  }
 
   const promptText = `أنا طالبة في متجر "بيننا" وأريد اقتراح سعر مناسب بالريال السعودي لهذا المنتج:
 - اسم المنتج: ${productName}
@@ -149,14 +165,15 @@ window.suggestProductPrice = function() {
 
   const encodedPrompt = encodeURIComponent(promptText);
   window.open(`https://gemini.google.com/app?q=${encodedPrompt}`, "_blank");
-}
+};
 
-// جلب المنتجات من قاعدة البيانات السحابية لعرضها للجميع فورياً
+// تحميل المنتجات من السحابة في الوقت الفعلي
 function loadProductsFromFirebase() {
   const container = document.getElementById("productsContainer");
-  
+  if (!container) return;
+
   onSnapshot(collection(db, "products"), (snapshot) => {
-    // إزالة المنتجات الديناميكية القديمة لكي لا تتكرر
+    // حذف المنتجات المضافة سحابياً لتجنب التكرار
     const dynamicCards = container.querySelectorAll(".firebase-product-card");
     dynamicCards.forEach(card => card.remove());
 
@@ -164,13 +181,15 @@ function loadProductsFromFirebase() {
       const p = docSnap.data();
       appendProductCard(p.name, p.category, p.condition, p.price, p.description, p.phone, p.image);
     });
+    applyFilters();
   });
 }
 
 function appendProductCard(name, category, condition, price, description, phone, image) {
   const container = document.getElementById("productsContainer");
-  const card = document.createElement("div");
+  if (!container) return;
 
+  const card = document.createElement("div");
   card.className = "product-card firebase-product-card";
   card.dataset.category = category;
 
@@ -216,6 +235,26 @@ function appendProductCard(name, category, condition, price, description, phone,
   container.appendChild(card);
 }
 
+// حفظ المنتج بالسحابة
+async function saveProductToCloud(name, category, condition, price, description, phone, image) {
+  try {
+    await addDoc(collection(db, "products"), {
+      name, category, condition, price, description, phone, image,
+      createdAt: new Date()
+    });
+
+    document.getElementById("productForm")?.reset();
+    const aiResult = document.getElementById("aiPriceResult");
+    if (aiResult) aiResult.textContent = "";
+
+    alert("تم نشر المنتج بنجاح في السحابة لجميع الطالبات!");
+    window.scrollToProducts();
+  } catch (error) {
+    console.error("خطأ أثناء حفظ المنتج: ", error);
+    alert("حدث خطأ أثناء النشر، تأكدي من إعدادات قاعدة البيانات في فايربيس.");
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   updateLoginButton();
   loadProductsFromFirebase();
@@ -229,11 +268,11 @@ document.addEventListener("DOMContentLoaded", function () {
       const category = document.getElementById("productCategory").value || "دراسية";
       const condition = document.getElementById("productCondition").value || "جديد";
       const price = document.getElementById("productPrice").value.trim() || "50";
-      const description = document.getElementById("productDescription").value.trim() || "";
+      const description = document.getElementById("productDescription")?.value.trim() || "";
       const phone = document.getElementById("sellerPhone").value.trim() || "0500000000";
       const imageInput = document.getElementById("productImage");
 
-      const file = imageInput.files[0];
+      const file = imageInput?.files[0];
 
       if (file) {
         const reader = new FileReader();
@@ -257,22 +296,3 @@ document.addEventListener("DOMContentLoaded", function () {
     aiBtn.addEventListener("click", window.suggestProductPrice);
   }
 });
-
-async function saveProductToCloud(name, category, condition, price, description, phone, image) {
-  try {
-    await addDoc(collection(db, "products"), {
-      name, category, condition, price, description, phone, image,
-      createdAt: new Date()
-    });
-
-    document.getElementById("productForm").reset();
-    const aiResult = document.getElementById("aiPriceResult");
-    if (aiResult) aiResult.textContent = "";
-
-    alert("تم نشر المنتج بنجاح في السحابة للجميع!");
-    window.scrollToProducts();
-  } catch (error) {
-    console.error("خطأ أثناء حفظ المنتج: ", error);
-    alert("حدث خطأ أثناء النشر، تأكد من إعدادات قاعدة البيانات.");
-  }
-}
