@@ -4,10 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>بيننا | من طالبة لطالبة</title>
-  
-  <!-- ربط ملف التنسيق والألوان -->
   <link rel="stylesheet" href="style.css">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Playpen+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,13 +12,7 @@
 <body>
 
 <header class="navbar">
-  <div style="display: flex; align-items: center; gap: 12px;">
-    <div class="logo">بيننا</div>
-    <div style="font-size: 11px; color: #666; border-right: 1px solid #ccc; padding-right: 10px; line-height: 1.3;">
-      <span>إعداد الطالبة: <strong>أمل صالح العنزي</strong> (تجارة إلكترونية)</span><br>
-      <span>إشراف المدربة: <strong>أ. إلهام العتيبي</strong></span>
-    </div>
-  </div>
+  <div class="logo">بيننا</div>
   <nav>
     <a href="#home">الرئيسية</a>
     <a href="#products">المنتجات</a>
@@ -32,16 +23,25 @@
 </header>
 
 <section id="home" class="hero">
-  <div class="hero-text">
-    <h1>بيننا</h1>
-    <h2>من طالبة لطالبة</h2>
-    <p>منصة خاصة لطالبات الكلية التقنية التطبيقية لبيع وشراء الأدوات والكتب والمستلزمات الدراسية بسهولة وبأسعار مناسبة.</p>
-    <div class="hero-buttons">
-      <button onclick="scrollToProducts()">تصفحي المنتجات</button>
-      <button onclick="scrollToAdd()">أضيفي منتج</button>
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1>بيننا</h1>
+      <h2>من طالبة لطالبة</h2>
+      <p>منصة خاصة لطالبات الكلية التقنية التطبيقية لبيع وشراء الأدوات والكتب والمستلزمات الدراسية بسهولة وبأسعار مناسبة.</p>
+      <div style="font-size: 13px; color: #8a7770; margin-top: 10px;">
+        إعداد الطالبة: <strong>أمل صالح العنزي</strong> (تجارة إلكترونية) | إشراف المدربة: <strong>أ. إلهام العتيبي</strong>
+      </div>
+      <div class="hero-buttons">
+        <button onclick="scrollToProducts()">تصفحي المنتجات</button>
+        <button onclick="scrollToAdd()">أضيفي منتج</button>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-icon">🤍</div>
+      <h2>بيننا</h2>
+      <p>منصة طالبات التقنية</p>
     </div>
   </div>
-  <div class="hero-card">✦</div>
 </section>
 
 <section class="search-section">
@@ -63,8 +63,11 @@
 </section>
 
 <section id="products" class="products-section">
-  <h2>المنتجات</h2>
-  <div id="productsContainer" class="products-grid">
+  <div class="section-title">
+    <h2>المنتجات</h2>
+    <button onclick="showAllProducts()">عرض الكل</button>
+  </div>
+  <div id="productsContainer" class="products-container">
 
     <div class="product-card" data-category="دراسية">
       <div class="product-image">📦</div>
@@ -73,7 +76,7 @@
         <h3>آلة حاسبة علمية</h3>
         <p>مستخدمة بحالة ممتازة</p>
         <strong>45 ريال</strong>
-        <button onclick="openProduct('آلة حاسبة علمية','45','','','آلة حاسبة علمية مستخدمة بحالة ممتازة.')">التفاصيل</button>
+        <button onclick="openProduct('آلة حاسبة علمية','45','0500000000','','آلة حاسبة علمية مستخدمة بحالة ممتازة.')">التفاصيل</button>
       </div>
     </div>
 
@@ -84,7 +87,7 @@
         <h3>كتاب مبادئ التسويق</h3>
         <p>بحالة جيدة</p>
         <strong>25 ريال</strong>
-        <button onclick="openProduct('كتاب مبادئ التسويق','25','','','كتاب مبادئ التسويق بحالة جيدة.')">التفاصيل</button>
+        <button onclick="openProduct('كتاب مبادئ التسويق','25','0500000000','','كتاب مبادئ التسويق بحالة جيدة.')">التفاصيل</button>
       </div>
     </div>
 
@@ -95,67 +98,95 @@
         <h3>أدوات تصميم</h3>
         <p>شبه جديدة</p>
         <strong>45 ريال</strong>
-        <button onclick="openProduct('أدوات تصميم','45','','','مجموعة أدوات تصميم شبه جديدة.')">التفاصيل</button>
+        <button onclick="openProduct('أدوات تصميم','45','0500000000','','مجموعة أدوات تصميم شبه جديدة.')">التفاصيل</button>
       </div>
     </div>
 
   </div>
-  <p id="noResults" style="display:none;">ما لقينا منتجات مطابقة لبحثك.</p>
+  <div id="noResults" class="no-results" style="display:none;">ما لقينا منتجات مطابقة لبحثك.</div>
 </section>
 
 <section id="add" class="add-section">
-  <h2>أضيفي منتج</h2>
+  <div class="section-title" style="justify-content: center;">
+    <h2>أضيفي منتج</h2>
+  </div>
 
-  <form id="productForm">
-    <input type="text" id="productName" placeholder="اسم المنتج" required>
+  <form id="productForm" class="product-form">
+    <div class="form-group">
+      <label for="productName">اسم المنتج</label>
+      <input type="text" id="productName" placeholder="أدخلي اسم المنتج" required>
+    </div>
 
-    <select id="productCategory" required>
-      <option value="">اختاري التصنيف</option>
-      <option value="كتب">كتب</option>
-      <option value="تصميم">تصميم</option>
-      <option value="إلكترونيات">إلكترونيات</option>
-      <option value="دراسية">دراسية</option>
-    </select>
+    <div class="form-group">
+      <label for="productCategory">التصنيف</label>
+      <select id="productCategory" required>
+        <option value="">اختاري التصنيف</option>
+        <option value="كتب">كتب</option>
+        <option value="تصميم">تصميم</option>
+        <option value="إلكترونيات">إلكترونيات</option>
+        <option value="دراسية">دراسية</option>
+      </select>
+    </div>
 
-    <select id="productCondition" required>
-      <option value="">حالة المنتج</option>
-      <option value="جديد">جديد</option>
-      <option value="شبه جديد">شبه جديد</option>
-      <option value="مستخدم بحالة جيدة">مستخدم بحالة جيدة</option>
-    </select>
+    <div class="form-group">
+      <label for="productCondition">حالة المنتج</label>
+      <select id="productCondition" required>
+        <option value="">اختاري حالة المنتج</option>
+        <option value="جديد">جديد</option>
+        <option value="شبه جديد">شبه جديد</option>
+        <option value="مستخدم بحالة جيدة">مستخدم بحالة جيدة</option>
+      </select>
+    </div>
 
-    <label for="productPrice">السعر بالريال</label>
-    <input type="number" id="productPrice" placeholder="اكتبي السعر بنفسك أو خليه مقترحًا" min="1">
+    <div class="form-group">
+      <label for="productPrice">السعر بالريال</label>
+      <input type="number" id="productPrice" placeholder="اكتبي السعر بالريال" min="1" required>
+    </div>
 
-    <button type="button" id="aiPriceButton">✨ اسألي الذكاء الاصطناعي عن السعر</button>
-    <p id="aiPriceResult" class="form-note" aria-live="polite"></p>
+    <div class="form-group">
+      <button type="button" id="aiPriceButton" class="login-submit" style="background: #f3eee8; color: #76594b; margin-bottom: 8px;">✨ اسألي الذكاء الاصطناعي عن السعر</button>
+      <p id="aiPriceResult" class="ai-note" aria-live="polite"></p>
+    </div>
 
-    <textarea id="productDescription" placeholder="وصف المنتج"></textarea>
+    <div class="form-group">
+      <label for="productDescription">وصف المنتج</label>
+      <textarea id="productDescription" placeholder="اكتبي تفاصيل أو وصف المنتج"></textarea>
+    </div>
 
-    <input type="tel" id="sellerPhone" placeholder="رقم الجوال للتواصل" required>
+    <div class="form-group">
+      <label for="sellerPhone">رقم الجوال للتواصل</label>
+      <input type="tel" id="sellerPhone" placeholder="05xxxxxxxx" required>
+    </div>
 
-    <label for="productImage">صورة المنتج</label>
-    <input type="file" id="productImage" accept="image/*">
+    <div class="form-group">
+      <label for="productImage">صورة المنتج</label>
+      <input type="file" id="productImage" accept="image/*">
+    </div>
 
-    <p class="form-note">السعر المقترح تقديري، ويمكنك تعديله واختيار السعر النهائي بنفسك.</p>
-    <p class="form-note">التواصل مع البائعة يكون خارج الموقع عن طريق رقم الجوال.</p>
+    <p class="contact-note">السعر المقترح تقديري، ويمكنك تعديله واختيار السعر النهائي بنفسك.</p>
+    <p class="contact-note">التواصل مع البائعة يكون خارج الموقع عن طريق رقم الجوال.</p>
 
-    <button type="submit">عرض المنتج</button>
+    <button type="submit" class="submit-product">عرض المنتج</button>
   </form>
 </section>
 
 <section id="account" class="account-section">
-  <h2>حسابي</h2>
+  <div class="section-title" style="justify-content: center;">
+    <h2>حسابي</h2>
+  </div>
   <div class="account-cards">
     <div class="account-card">
+      <div class="account-icon">⭐</div>
       <h3>المفضلة</h3>
       <p>المنتجات التي حفظتيها.</p>
     </div>
     <div class="account-card">
+      <div class="account-icon">🛍️</div>
       <h3>منتجاتي</h3>
       <p>المنتجات التي قمتِ بعرضها.</p>
     </div>
     <div class="account-card">
+      <div class="account-icon">🛒</div>
       <h3>مشترياتي</h3>
       <p>المنتجات التي اشتريتيها.</p>
     </div>
@@ -166,32 +197,39 @@
   <div class="modal-content">
     <button class="close-btn" onclick="closeLogin()">×</button>
     <h2>تسجيل الدخول</h2>
-    <input type="text" id="loginName" placeholder="الاسم الكامل">
-    <input type="text" id="trainingNumber" placeholder="الرقم التدريبي">
-    <input type="email" id="loginEmail" placeholder="البريد الإلكتروني">
-    <button onclick="login()">دخول</button>
+    <p>أدخلي بياناتك للمتابعة</p>
+    <div class="form-group">
+      <input type="text" id="loginName" placeholder="الاسم الكامل">
+    </div>
+    <div class="form-group">
+      <input type="text" id="trainingNumber" placeholder="الرقم التدريبي">
+    </div>
+    <div class="form-group">
+      <input type="email" id="loginEmail" placeholder="البريد الإلكتروني">
+    </div>
+    <button onclick="login()" class="login-submit">دخول</button>
   </div>
 </div>
 
 <div id="productModal" class="modal">
   <div class="modal-content product-modal-content">
-    <button class="back-btn" onclick="closeProduct()">← رجوع</button>
+    <button class="close-btn" onclick="closeProduct()">×</button>
     <div class="modal-product-image">📦</div>
     <h2 id="modalProductName">اسم المنتج</h2>
-    <strong id="modalProductPrice">0 ريال</strong>
+    <strong id="modalProductPrice" class="modal-product-price">0 ريال</strong>
     <p id="modalProductDescription"></p>
-    <button onclick="contactSeller()">التواصل مع البائع</button>
+    <button onclick="contactSeller()" class="contact-btn">التواصل مع البائع</button>
   </div>
 </div>
 
 <footer>
-  <p>بيننا — من طالبة لطالبة | منصة خاصة بطالبات الكلية التقنية التطبيقية</p>
-  <p style="font-size: 12px; opacity: 0.8; margin-top: 5px;">
-    إعداد الطالبة: <strong>أمل صالح العنزي</strong> — تخصص تجارة إلكترونية | إشراف المدربة: <strong>أ. إلهام العتيبي</strong>
-  </p>
+  <div class="footer-content">
+    <h2>بيننا</h2>
+    <p>من طالبة لطالبة — منصة خاصة بطالبات الكلية التقنية التطبيقية</p>
+    <p>إعداد الطالبة: <strong>أمل صالح العنزي</strong> (تجارة إلكترونية) | إشراف المدربة: <strong>أ. إلهام العتيبي</strong></p>
+  </div>
 </footer>
 
-<!-- ربط ملف الجافاسكريبت -->
 <script src="script.js"></script>
 </body>
 </html>
